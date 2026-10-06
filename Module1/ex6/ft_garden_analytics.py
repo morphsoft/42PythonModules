@@ -17,7 +17,7 @@ class Plant:
         def display_stats(self):
             print(f"Grow calls: {self.grow_calls}, Age calls: {self.age_calls}, Show calls: {self._show_calls}")
 
-    def __init__(self, name = "Black Lotus", height = 1, age = 0, growth_rate = 1.5, max_height = 200):
+    def __init__(self, name="Black Lotus", height=1, age=0, growth_rate=1.5, max_height=200):
         self._height = 0
         self._days_old = 0
         self._growth_rate = 1
@@ -121,7 +121,7 @@ class Flower(Plant):
         print((f"-> Petal Color: {self._petal_color}"))
 
 class Seed(Flower):
-    def __init__(self, name = "Black Lotus", height=0, age=0, growth_rate=1, color="black", seeds_per_bloom=10):
+    def __init__(self, name="Black Lotus", height=0, age=0, growth_rate=1, color="black", seeds_per_bloom=10):
         super().__init__(name, height, age, growth_rate, petal_color=color)
         self._seeds_per_bloom = seeds_per_bloom
         self._seeds = 0
