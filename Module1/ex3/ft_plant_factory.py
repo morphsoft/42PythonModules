@@ -41,6 +41,6 @@ if __name__ == "__main__":
     cactus = Plant("Cactus", 10, 15, growth_rate=1.05, max_height=50)
     violet = Plant("Violet", 3, 20, growth_rate=1.2, max_height=20)
     orchid = Plant("Orchid", 4, 574, growth_rate=1.15, max_height=25)
-    black_lotus = Plant("Black Lotus", 2,1002, growth_rate=1.3, max_height=15)
+    black_lotus = Plant("Black Lotus", 2, 1002, growth_rate=1.3, max_height=15)
 
     print("== End of Program ==")

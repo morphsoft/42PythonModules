@@ -45,7 +45,7 @@ class Plant:
     def set_height(self, height):
         if (height < 0):
             print("""\033[91mError: Height cannot be negative.
-             Setting height to 0.\033[0m""")
+Setting height to 0.\033[0m""")
             height = 0
         if height > self._max_height:
             self._height = self._max_height
@@ -55,7 +55,7 @@ class Plant:
     def set_max_height(self, max_height):
         if (max_height < 0):
             print("""\033[91mError: Max height cannot be negative.
-                   Setting max height to 0.\033[0m""")
+Setting max height to 0.\033[0m""")
             max_height = 0
         self._max_height = max_height
         if self._height > self._max_height:
@@ -64,14 +64,14 @@ class Plant:
     def set_growth_rate(self, growth_rate):
         if (growth_rate < 0):
             print("""\033[91mError: Growth rate cannot be negative.
-             Setting growth rate to 0.\033[0m""")
+Setting growth rate to 0.\033[0m""")
             growth_rate = 0
         self._growth_rate = growth_rate
 
     def set_age(self, age):
         if (age < 0):
             print("""\033[91mError: Age cannot be negative.
-                  Setting age to 0.\033[0m""")
+Setting age to 0.\033[0m""")
             age = 0
         self._days_old = age
 
@@ -82,9 +82,8 @@ class Plant:
 class Flower(Plant):
     def __init__(self, name="Black Lotus", height=1, age=0,
                  growth_rate=1.5, max_height=200, petal_color="Black"):
-        super().__init__(name, height, age, growth_rate, max_height)
-        self._petal_color = "Black"
         self.set_petal_color(petal_color)
+        super().__init__(name, height, age, growth_rate, max_height)
 
     def set_petal_color(self, petal_color):
         self._petal_color = petal_color
@@ -94,43 +93,39 @@ class Flower(Plant):
 
     def show(self, prefix=""):
         print((f"""{prefix}{self._name}: {self._height:.1f} cm,
-               {self._days_old} days, Petal Color: {self._petal_color}"""))
+{self._days_old} days, Petal Color: {self._petal_color}"""))
 
 
 class Tree(Plant):
     def __init__(self, name="Oak", height=600, age=360,
                  growth_rate=1.5, max_height=1200, trunk_diameter=150):
-        super().__init__(name, height, age, growth_rate, max_height)
-        self.trunk_diameter = 150
         self.set_trunk_diameter(trunk_diameter)
+        super().__init__(name, height, age, growth_rate, max_height)
 
     def set_trunk_diameter(self, trunk_diameter):
         if (trunk_diameter < 0):
             print("""Error: Trunk diameter cannot be negative.
-            Setting trunk diameter to 0.""")
+Setting trunk diameter to 0.""")
             trunk_diameter = 0
         self._trunk_diameter = trunk_diameter
 
     def produce_shade(self):
         print(f"""{self._name} is producing shade.
-        The shade is {self._height} cm tall
-        and {self._trunk_diameter} cm wide.""")
+The shade is {self._height} cm tall
+and {self._trunk_diameter} cm wide.""")
 
     def show(self, prefix=""):
         print((f"""{prefix}{self._name}: {self._height:.1f} cm,
-        {self._days_old} days, Trunk Diameter: {self._trunk_diameter} cm"""))
+{self._days_old} days, Trunk Diameter: {self._trunk_diameter} cm"""))
 
 
 class Vegetable(Plant):
     def __init__(self, name="Pumpkin", height=20, age=40,
                  growth_rate=1.5, max_height=200, harvest_season="Fall",
                  nutritional_value=30):
-        super().__init__(name, height, age, growth_rate, max_height)
-        self._harvest_season = "Fall"
-        self._nutritional_value = 30
-
         self.set_harvest_season(harvest_season)
         self.set_nutritional_value(nutritional_value)
+        super().__init__(name, height, age, growth_rate, max_height)
 
     def set_harvest_season(self, harvest_season):
         self._harvest_season = harvest_season
@@ -138,14 +133,14 @@ class Vegetable(Plant):
     def set_nutritional_value(self, nutritional_value):
         if (nutritional_value < 0):
             print("""Error: Nutritional value cannot be negative.
-            Setting nutritional value to 0.""")
+Setting nutritional value to 0.""")
             nutritional_value = 0
         self._nutritional_value = nutritional_value
 
     def show(self, prefix=""):
         print((f"""{prefix}{self._name}: {self._height:.1f} cm,
-        {self._days_old} days, Harvest Season: {self._harvest_season},
-        Nutritional Value: {self._nutritional_value}"""))
+{self._days_old} days, Harvest Season: {self._harvest_season},
+Nutritional Value: {self._nutritional_value}"""))
 
 
 if __name__ == "__main__":

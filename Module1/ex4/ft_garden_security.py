@@ -1,5 +1,6 @@
 class Plant:
-    def __init__(self, name="Black Lotus", height=1, age=0, growth_rate=1.5, max_height=200):
+    def __init__(self, name="Black Lotus", height=1,
+                 age=0, growth_rate=1.5, max_height=200):
         self._height = 0
         self._days_old = 0
         self._growth_rate = 1
@@ -19,7 +20,7 @@ class Plant:
         age = f"{self._days_old} days"
         print((f"{prefix}{self._name}: {height}, {age}"))
 
-    def grow(self, cm = None):
+    def grow(self, cm=None):
         if cm is None:
             remaining = self._max_height - self._height
             self._height += remaining * (self._growth_rate - 1)
@@ -28,7 +29,7 @@ class Plant:
         else:
             self._height += cm
 
-    def age(self, days = 1):
+    def age(self, days=1):
         self._days_old += days
 
     def simulate_growth(self, days):
@@ -44,7 +45,7 @@ class Plant:
     def set_height(self, height):
         if (height < 0):
             print("""\033[91mError: Height cannot be negative.
-             Setting height to 0.\033[0m""")
+Setting height to 0.\033[0m""")
             height = 0
         if height > self._max_height:
             self._height = self._max_height
@@ -54,7 +55,7 @@ class Plant:
     def set_max_height(self, max_height):
         if (max_height < 0):
             print("""\033[91mError: Max height cannot be negative.
-                   Setting max height to 0.\033[0m""")
+Setting max height to 0.\033[0m""")
             max_height = 0
         self._max_height = max_height
         if self._height > self._max_height:
@@ -63,14 +64,14 @@ class Plant:
     def set_growth_rate(self, growth_rate):
         if (growth_rate < 0):
             print("""\033[91mError: Growth rate cannot be negative.
-             Setting growth rate to 0.\033[0m""")
+Setting growth rate to 0.\033[0m""")
             growth_rate = 0
         self._growth_rate = growth_rate
 
     def set_age(self, age):
         if (age < 0):
             print("""\033[91mError: Age cannot be negative.
-                  Setting age to 0.\033[0m""")
+Setting age to 0.\033[0m""")
             age = 0
         self._days_old = age
 
