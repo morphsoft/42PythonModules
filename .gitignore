@@ -1,1 +1,5 @@
 mygalbackup_project/
+__pycache__/
+.mypy_cache/
+.env
+matrix_env/

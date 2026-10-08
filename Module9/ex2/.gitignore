@@ -1,0 +1,11 @@
+# Real secrets live here: never commit them
+.env
+
+# Virtual environments
+matrix_env/
+venv/
+.venv/
+
+# Python caches
+__pycache__/
+*.pyc
