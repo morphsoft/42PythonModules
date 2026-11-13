@@ -4,15 +4,28 @@ ACHIEVEMENTS = [
     "First Steps", "Speed Runner", "Boss Slayer", "Collector Supreme",
     "Master Explorer", "Treasure Hunter", "Untouchable", "Unstoppable",
     "Survivor", "Strategist", "Sharp Mind", "Crafting Genius",
-    "World Savior", "Hidden Path Finder",
+    "World Savior", "Hidden Path Finder", "Night Owl", "Early Bird",
+    "Dragon Tamer", "Gold Hoarder", "Perfectionist", "Pacifist",
+    "Speed Demon", "Lucky Strike", "Combo Master", "Iron Will",
+    "Lore Keeper", "Map Maker", "Beast Friend", "Shadow Walker",
+    "Potion Brewer", "Sky Diver", "Deep Diver", "Puzzle Solver",
+    "Guardian", "Champion", "Legend", "Veteran", "Rookie of the Year",
+    "Marathon Runner", "Sharpshooter", "Completionist", "Treasure Seeker",
+    "Monster Hunter", "Silent Step", "Fire Starter", "Ice Breaker",
+    "Storm Rider", "Time Traveler", "Last Stand",
 ]
 
 PLAYERS = ["Alice", "Bob", "Charlie", "Dylan"]
 
 
 def gen_player_achievements() -> set[str]:
-    """Build a random set of achievements for one player."""
-    count = random.randint(4, 9)
+    """Build a random set of achievements for one player.
+
+    Each player picks about half of the 48 achievements: this balances
+    the chances of having common achievements (high pick rate) and
+    achievements owned by a single player (low pick rate).
+    """
+    count = random.randint(22, 26)
     return set(random.sample(ACHIEVEMENTS, count))
 
 

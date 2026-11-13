@@ -17,9 +17,14 @@ def parse_inventory(arguments: list[str]) -> dict[str, int]:
             print(f"Redundant item '{name}' - discarding")
             continue
         try:
-            inventory[name] = int(quantity_text)
+            quantity = int(quantity_text)
         except ValueError as error:
             print(f"Quantity error for '{name}': {error}")
+            continue
+        if quantity < 0:
+            print(f"Quantity error for '{name}': negative quantity")
+            continue
+        inventory[name] = quantity
     return inventory
 
 
@@ -48,7 +53,10 @@ def main() -> None:
     total = sum(inventory.values())
     print(f"Total quantity of the {len(inventory)} items: {total}")
     for name in inventory.keys():
-        percentage = round(inventory[name] / total * 100, 1)
+        if total == 0:
+            percentage = 0.0
+        else:
+            percentage = round(inventory[name] / total * 100, 1)
         print(f"Item {name} represents {percentage}%")
     most, least = find_extremes(inventory)
     print(f"Item most abundant: {most} with quantity {inventory[most]}")

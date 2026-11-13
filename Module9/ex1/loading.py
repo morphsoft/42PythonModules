@@ -21,13 +21,15 @@ def check_dependencies() -> tuple[dict[str, Any], list[str]]:
     for name, purpose in DEPENDENCIES.items():
         try:
             modules[name] = importlib.import_module(name)
-            version = importlib.metadata.version(name)
-            print(f"[OK] {name} ({version}) - {purpose} ready")
         except ImportError:
             print(f"[MISSING] {name} - {purpose} unavailable")
             missing.append(name)
+            continue
+        try:
+            version = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:
-            print(f"[OK] {name} (unknown version) - {purpose} ready")
+            version = "unknown version"
+        print(f"[OK] {name} ({version}) - {purpose} ready")
     return modules, missing
 
 

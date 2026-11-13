@@ -4,18 +4,26 @@ import sys
 REQUIRED = ("MATRIX_MODE", "DATABASE_URL", "API_KEY", "LOG_LEVEL",
             "ZION_ENDPOINT")
 DEFAULTS = {"MATRIX_MODE": "development", "LOG_LEVEL": "INFO"}
+ALLOWED = {
+    "MATRIX_MODE": ("development", "production"),
+    "LOG_LEVEL": ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"),
+}
 
 
 def load_env_file() -> bool:
     """Load .env through python-dotenv; real env vars keep priority."""
     try:
-        from dotenv import load_dotenv
+        from dotenv import find_dotenv, load_dotenv
     except ImportError:
         print("WARNING: python-dotenv is not installed, "
               "only real environment variables are used")
         print("         (pip install -r requirements.txt)")
         return False
-    return bool(load_dotenv(override=False))
+    env_path = find_dotenv()
+    if env_path == "":
+        return False
+    load_dotenv(env_path, override=False)
+    return True
 
 
 def read_config() -> tuple[dict[str, str], list[str]]:
@@ -24,7 +32,12 @@ def read_config() -> tuple[dict[str, str], list[str]]:
     missing: list[str] = []
     for name in REQUIRED:
         value = os.environ.get(name, "").strip()
-        if value == "":
+        if name in ALLOWED and value != "" and value not in ALLOWED[name]:
+            print(f"WARNING: invalid {name} '{value}' "
+                  f"(expected one of: {', '.join(ALLOWED[name])}), "
+                  f"using default '{DEFAULTS[name]}'")
+            config[name] = DEFAULTS[name]
+        elif value == "":
             if name in DEFAULTS:
                 config[name] = DEFAULTS[name]
                 print(f"WARNING: {name} not set, using default "
@@ -43,6 +56,16 @@ def mask(secret: str, production: bool) -> str:
     return secret[:3] + "*" * max(len(secret) - 3, 0)
 
 
+def hide_credentials(url: str) -> str:
+    """Replace the password of 'scheme://user:password@host' by stars."""
+    if "://" not in url or "@" not in url:
+        return url
+    scheme, rest = url.split("://", 1)
+    credentials, host = rest.rsplit("@", 1)
+    user = credentials.split(":", 1)[0]
+    return f"{scheme}://{user}:****@{host}"
+
+
 def describe_database(url: str) -> str:
     """Summarize the database connection without leaking the URL."""
     if url.startswith("sqlite") or "localhost" in url or "127.0.0.1" in url:
@@ -58,7 +81,8 @@ def report(config: dict[str, str], missing: list[str],
     print("Configuration loaded:")
     print(f"Mode: {config['MATRIX_MODE']}")
     if "DATABASE_URL" in config:
-        detail = "" if production else f" ({config['DATABASE_URL']})"
+        url = hide_credentials(config["DATABASE_URL"])
+        detail = "" if production else f" ({url})"
         print(f"Database: {describe_database(config['DATABASE_URL'])}"
               f"{detail}")
     else:

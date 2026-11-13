@@ -4,7 +4,7 @@ from collections.abc import Callable
 from typing import Any
 
 
-def spell_timer(func: Callable) -> Callable:
+def spell_timer(func: Callable[..., Any]) -> Callable[..., Any]:
     """Print how long the decorated function takes to run."""
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
@@ -17,31 +17,43 @@ def spell_timer(func: Callable) -> Callable:
     return wrapper
 
 
-def power_validator(min_power: int) -> Callable:
+def power_validator(min_power: int) -> Callable[..., Any]:
     """Build a decorator that rejects calls whose power is too low.
 
-    The power is read from the 'power' keyword argument or, failing
-    that, from the last positional argument.
+    The power is the argument named 'power', whether it is passed by
+    keyword or by position. Functions without a 'power' parameter use
+    their last positional argument instead.
     """
-    def decorator(func: Callable) -> Callable:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        code = func.__code__
+        parameters = code.co_varnames[:code.co_argcount]
+        if "power" in parameters:
+            power_index = parameters.index("power")
+        else:
+            power_index = -1
+
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             if "power" in kwargs:
                 power = kwargs["power"]
-            elif len(args) > 0:
+            elif power_index >= 0 and power_index < len(args):
+                power = args[power_index]
+            elif power_index < 0 and len(args) > 0:
                 power = args[-1]
             else:
                 power = None
-            if not isinstance(power, int) or power < min_power:
+            if (isinstance(power, bool)
+                    or not isinstance(power, (int, float))
+                    or power < min_power):
                 return "Insufficient power for this spell"
             return func(*args, **kwargs)
         return wrapper
     return decorator
 
 
-def retry_spell(max_attempts: int) -> Callable:
+def retry_spell(max_attempts: int) -> Callable[..., Any]:
     """Build a decorator that retries a function when it raises."""
-    def decorator(func: Callable) -> Callable:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @functools.wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             for attempt in range(1, max_attempts + 1):

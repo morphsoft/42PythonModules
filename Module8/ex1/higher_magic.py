@@ -10,7 +10,8 @@ def ensure_callable(*candidates: object) -> None:
             raise TypeError(f"{candidate!r} is not a callable spell")
 
 
-def spell_combiner(spell1: Spell, spell2: Spell) -> Callable:
+def spell_combiner(spell1: Spell,
+                   spell2: Spell) -> Callable[[str, int], tuple[str, str]]:
     """Build a spell that casts both spells and returns both results."""
     ensure_callable(spell1, spell2)
 
@@ -40,7 +41,7 @@ def conditional_caster(condition: Callable[[str, int], bool],
     return guarded
 
 
-def spell_sequence(spells: list[Spell]) -> Callable:
+def spell_sequence(spells: list[Spell]) -> Callable[[str, int], list[str]]:
     """Build a spell that casts every spell in order."""
     ensure_callable(*spells)
 

@@ -31,7 +31,7 @@ def enchantment_factory(enchantment_type: str) -> Callable[[str], str]:
     return enchant
 
 
-def memory_vault() -> dict[str, Callable]:
+def memory_vault() -> dict[str, Callable[..., Any]]:
     """Return 'store' and 'recall' functions sharing a private dict."""
     memories: dict[str, Any] = {}
 

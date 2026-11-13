@@ -5,42 +5,38 @@ def garden_operations(operation_number: int) -> None:
     elif operation_number == 1:
         10 / 0
     elif operation_number == 2:
-        open("missing_garden_file.txt")
+        open("/non/existent/file")
     elif operation_number == 3:
         "plants: " + 5
     return
 
 
 def test_error_types() -> None:
-    print("=== Garden Error Types Demo ===\n")
+    print("=== Garden Error Types Demo ===")
 
-    # One try block, several separate except clauses
-    for operation_number in range(5):
+    # Each error type caught by its own except clause
+    for operation_number in [0, 1, 2, 3, 4]:
         print(f"Testing operation {operation_number}...")
         try:
             garden_operations(operation_number)
             print("Operation completed successfully")
         except ValueError as error:
             print(f"Caught ValueError: {error}")
-            print("-> Bad data: the text could not be converted to a number")
         except ZeroDivisionError as error:
             print(f"Caught ZeroDivisionError: {error}")
-            print("-> You cannot divide by zero")
         except FileNotFoundError as error:
             print(f"Caught FileNotFoundError: {error}")
-            print("-> The file does not exist, so it was never opened")
         except TypeError as error:
             print(f"Caught TypeError: {error}")
-            print("-> A string and a number cannot be added together")
-        print("Program is still running!\n")
 
-    print("Testing multiple errors together...")
-    for operation_number in range(4):
+    # Several error types caught by a single except clause
+    print("\nTesting multiple errors with one try block...")
+    for operation_number in [0, 1, 2, 3]:
         try:
             garden_operations(operation_number)
         except (ValueError, ZeroDivisionError,
                 FileNotFoundError, TypeError) as error:
-            print(f"Caught {type(error).__name__}, but program continues!")
+            print(f"Caught an error, but program continues: {error}")
 
     print("\nAll error types tested successfully!")
 

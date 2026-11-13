@@ -4,9 +4,12 @@ import sys
 
 
 def in_virtual_env() -> bool:
-    """A venv changes sys.prefix while sys.base_prefix stays global."""
-    return (sys.prefix != sys.base_prefix
-            or os.environ.get("VIRTUAL_ENV") is not None)
+    """A venv changes sys.prefix while sys.base_prefix stays global.
+
+    The VIRTUAL_ENV variable is not trusted: it only says a venv was
+    activated in the shell, not that this interpreter belongs to it.
+    """
+    return sys.prefix != sys.base_prefix
 
 
 def site_packages_path() -> str:
@@ -46,7 +49,7 @@ def report_global() -> None:
 
 def report_virtual() -> None:
     """Describe the virtual environment currently active."""
-    env_path = os.environ.get("VIRTUAL_ENV", sys.prefix)
+    env_path = sys.prefix
     print("MATRIX STATUS: Welcome to the construct")
     print()
     print(f"Current Python: {sys.executable}")
