@@ -3,7 +3,7 @@ CONFIG  = config.txt
 MYPY_FLAGS = --warn-return-any --warn-unused-ignores --ignore-missing-imports \
              --disallow-untyped-defs --check-untyped-defs
 
-.PHONY: install run debug clean lint lint-strict test package
+.PHONY: install run debug clean lint lint-strict test tester package
 
 # Instala as ferramentas de desenvolvimento.
 install:
@@ -31,6 +31,10 @@ lint-strict:
 
 test:
 	$(PYTHON) -m pytest tests
+
+# Visita guiada: confere o projeto inteiro contra o subject, com explicações.
+tester:
+	$(PYTHON) tests/tester.py
 
 # Gera o pacote mazegen-1.0.0-py3-none-any.whl na raiz do repositório.
 package:

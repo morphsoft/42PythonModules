@@ -56,7 +56,8 @@ def save_maze(maze: MazeGenerator, filename: str) -> None:
     lines.append(f"{maze.exit[0]},{maze.exit[1]}")
     lines.append(maze.solution_letters())
     try:
-        with open(filename, "w", encoding="utf-8") as file:
+        # newline="\n": toda linha termina com \n, até no Windows.
+        with open(filename, "w", encoding="utf-8", newline="\n") as file:
             for line in lines:
                 file.write(line + "\n")
     except OSError as error:

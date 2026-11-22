@@ -34,6 +34,7 @@ make debug          # same, inside pdb
 make lint           # flake8 + mypy (mandatory flags)
 make lint-strict    # flake8 + mypy --strict
 make test           # unit tests (pytest)
+make tester         # guided tour: checks every subject rule, explained
 make package        # builds mazegen-1.0.0-py3-none-any.whl at the root
 make clean          # removes caches
 ```
@@ -161,7 +162,7 @@ a_maze_ing.py      main program: config -> maze -> file -> menu
 config_reader.py   reads and checks the configuration file
 display.py         draws the maze in the terminal (ANSI colours)
 mazegen/           the reusable package (MazeGenerator)
-tests/             pytest unit tests (one test per subject rule)
+tests/             pytest unit tests + tester.py (guided terminal tester)
 ```
 
 ## Team and project management
