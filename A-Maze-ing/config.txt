@@ -1,7 +1,13 @@
-WIDTH=10
-HEIGHT=10
+# A-Maze-ing default configuration
+# One KEY=VALUE per line. Lines starting with # are ignored.
+
+# Mandatory keys
+WIDTH=20
+HEIGHT=15
 ENTRY=0,0
-EXIT=9,9
+EXIT=19,14
 OUTPUT_FILE=maze.txt
-PERFECT=True
-RANDOM=False
+PERFECT=False
+
+# Optional: same seed = same maze. Remove it to get a random maze.
+SEED=42

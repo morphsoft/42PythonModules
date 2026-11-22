@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.mypy_cache/
+.pytest_cache/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Arquivo gerado pelo programa
+maze.txt
