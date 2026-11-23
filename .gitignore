@@ -3,3 +3,4 @@ __pycache__/
 .mypy_cache/
 .env
 matrix_env/
+*.pdf

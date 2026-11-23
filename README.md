@@ -92,5 +92,5 @@ O A-Maze-ing tem os próprios comandos (`make run`, `make test`, `make tester`):
 ```
 Module0/ … Module9/      os exercícios (ex0/, ex1/, … dentro de cada módulo)
 A-Maze-ing/              o projeto do gerador de labirintos
-pdfs-and-materials/      os PDFs dos subjects (ModuleN_Titulo.pdf) e os geradores de dados que eles usam
+pdfs-and-materials/      os geradores de dados que os exercícios usam (os PDFs dos subjects não vão pro repositório)
 ```
