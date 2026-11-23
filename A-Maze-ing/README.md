@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by hvaini-d, <login2>.*
+*This project has been created as part of the 42 curriculum by hvaini-d, malima-m.*
 
 # A-Maze-ing
 
@@ -176,7 +176,7 @@ tests/             testes unitários (pytest) + tester.py (tester guiado no term
 
 - **Papéis**:
   - hvaini-d: geração do labirinto, empacotamento, testes.
-  - <login2>: leitor de configuração, exibição no terminal, README.
+  - malima-m: leitor de configuração, exibição no terminal, README.
 - **Planejamento**: primeiro um protótipo num arquivo só; depois o código foi
   dividido em módulos pequenos, para que cada parte pudesse ser estudada
   separadamente. O modo Pac-Man entrou quando o subject foi atualizado
