@@ -521,19 +521,27 @@ def room_paperwork(t: Tester) -> None:
                 detail="ainda tem um <loginN> para trocar",
                 hint="troque pelo login de verdade da dupla")
         lower = text.lower()
+        # O README pode estar em inglês ou em português (o subject deixa
+        # usar a língua do campus), então cada item aceita as duas formas.
         sections = {
-            "Description": "## description", "Instructions":
-            "## instructions", "Resources": "## resources",
+            "Description": ["## description", "## descrição"],
+            "Instructions": ["## instructions", "## instruções"],
+            "Resources": ["## resources", "## recursos"],
         }
-        missing = [name for name, tag in sections.items() if tag not in lower]
+        missing = [name for name, tags in sections.items()
+                   if not any(tag in lower for tag in tags)]
         t.check("Seções Description, Instructions e Resources",
                 not missing, detail=f"faltando: {', '.join(missing)}")
         topics = {
-            "formato do config": "config", "algoritmo": "algorithm",
-            "por que o algoritmo": "why", "código reutilizável": "reusable",
-            "papéis da equipe": "role", "uso de IA": " ai ",
+            "formato do config": ["config"],
+            "algoritmo": ["algorithm", "algoritmo"],
+            "por que o algoritmo": ["why", "por que", "por quê"],
+            "código reutilizável": ["reusable", "reutilizável"],
+            "papéis da equipe": ["role", "papéis", "papel"],
+            "uso de IA": [" ai ", " ia "],
         }
-        missing = [name for name, word in topics.items() if word not in lower]
+        missing = [name for name, words in topics.items()
+                   if not any(word in lower for word in words)]
         t.check("Tópicos extras do capítulo VII (algoritmo, equipe, IA...)",
                 not missing, detail=f"faltando: {', '.join(missing)}")
 
