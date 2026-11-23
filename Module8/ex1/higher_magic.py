@@ -1,7 +1,5 @@
 from collections.abc import Callable
 
-Spell = Callable[[str, int], str]
-
 
 def ensure_callable(*candidates: object) -> None:
     """Raise a TypeError if any candidate cannot be called."""
@@ -10,8 +8,10 @@ def ensure_callable(*candidates: object) -> None:
             raise TypeError(f"{candidate!r} is not a callable spell")
 
 
-def spell_combiner(spell1: Spell,
-                   spell2: Spell) -> Callable[[str, int], tuple[str, str]]:
+def spell_combiner(
+        spell1: Callable[[str, int], str],
+        spell2: Callable[[str, int], str]
+) -> Callable[[str, int], tuple[str, str]]:
     """Build a spell that casts both spells and returns both results."""
     ensure_callable(spell1, spell2)
 
@@ -20,7 +20,10 @@ def spell_combiner(spell1: Spell,
     return combined
 
 
-def power_amplifier(base_spell: Spell, multiplier: int) -> Spell:
+def power_amplifier(
+        base_spell: Callable[[str, int], str],
+        multiplier: int
+) -> Callable[[str, int], str]:
     """Build a spell that multiplies the power before casting."""
     ensure_callable(base_spell)
 
@@ -29,8 +32,10 @@ def power_amplifier(base_spell: Spell, multiplier: int) -> Spell:
     return amplified
 
 
-def conditional_caster(condition: Callable[[str, int], bool],
-                       spell: Spell) -> Spell:
+def conditional_caster(
+        condition: Callable[[str, int], bool],
+        spell: Callable[[str, int], str]
+) -> Callable[[str, int], str]:
     """Build a spell that only casts when the condition holds."""
     ensure_callable(condition, spell)
 
@@ -41,7 +46,9 @@ def conditional_caster(condition: Callable[[str, int], bool],
     return guarded
 
 
-def spell_sequence(spells: list[Spell]) -> Callable[[str, int], list[str]]:
+def spell_sequence(
+        spells: list[Callable[[str, int], str]]
+) -> Callable[[str, int], list[str]]:
     """Build a spell that casts every spell in order."""
     ensure_callable(*spells)
 

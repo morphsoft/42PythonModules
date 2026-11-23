@@ -36,10 +36,13 @@ def test_watering_system(plants: list[str]) -> None:
 def main() -> None:
     """Run the watering system with valid and invalid plants."""
     print("=== Garden Watering System ===")
+    print()
     print("Testing valid plants...")
     test_watering_system(["Tomato", "Lettuce", "Carrots"])
+    print()
     print("Testing invalid plants...")
     test_watering_system(["Tomato", "lettuce", "Carrots"])
+    print()
     print("Cleanup always happens, even with errors!")
 
 

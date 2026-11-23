@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 from ex0.creature import Creature
-from ex1 import HealCapability, TransformCapability
+from ex1.capabilities import HealCapability, TransformCapability
 
 
 class InvalidStrategyError(Exception):

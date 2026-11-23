@@ -38,7 +38,7 @@ def save_file(file_name: str, content: str) -> None:
     print(f"Saving data to '{file_name}'")
     try:
         archive: typing.IO[str] = open(file_name, "w")
-    except OSError as error:
+    except (OSError, ValueError) as error:
         print(f"Error opening file '{file_name}': {error}")
         print("Data not saved.")
         return

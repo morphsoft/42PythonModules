@@ -22,7 +22,11 @@ def load_env_file() -> bool:
     env_path = find_dotenv()
     if env_path == "":
         return False
-    load_dotenv(env_path, override=False)
+    try:
+        load_dotenv(env_path, override=False)
+    except (OSError, ValueError) as error:
+        print(f"WARNING: could not read {env_path}: {error}")
+        return False
     return True
 
 
@@ -61,6 +65,8 @@ def hide_credentials(url: str) -> str:
     if "://" not in url or "@" not in url:
         return url
     scheme, rest = url.split("://", 1)
+    if "@" not in rest:
+        return url
     credentials, host = rest.rsplit("@", 1)
     user = credentials.split(":", 1)[0]
     return f"{scheme}://{user}:****@{host}"
